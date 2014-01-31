@@ -54,7 +54,7 @@ def set_constants_from_argumentes():
     parser.add_argument("-l", "--min_lines_display", type=int, default=MIN_LINES_MATCH_TO_DISPLAY,
             help="Minimum number of lines a file match requires to display its name.\
                     Defaults to %d" % MIN_LINES_MATCH_TO_DISPLAY)
-    parser.add_argument("--ignore_prefix", type=str, default=",".join(IGNORE_EXTENSIONS),
+    parser.add_argument("-i", "--ignore_prefix", type=str, default=",".join(IGNORE_EXTENSIONS),
             help="comma separated list of extensions or file name suffixes to be ignored. Defaults to %s" % ",".join(IGNORE_EXTENSIONS))
     args = parser.parse_args()
     EXTENDED_FILE_PRINT = args.extended_list
