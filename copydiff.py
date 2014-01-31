@@ -54,15 +54,13 @@ def set_constants_from_argumentes():
     parser.add_argument("--ignore_prefix", type=str, default=",".join(IGNORE_EXTENSIONS),
             help="comma separated list of extensions or file name suffixes to be ignored. Defaults to %s" % ",".join(IGNORE_EXTENSIONS))
     args = parser.parse_args()
-    print args
-    sys.exit(1)
     ROOT_DIR = args.root_directory
     TRUNCATE_LENGTH = args.truncate_length
     MIN_PERCENT_MATCH_TO_DSIPLAY = args.min_percent_display
     MIN_LINES_MATCH_TO_DISPLAY = args.min_lines_display
     SIZE_LIMIT = args.size_limit
-    REPEAT_TOLERANCE = args.REPEAT_TOLERANCE
-    IGNORE_EXTENSIONS = args.IGNORE_EXTENSIONS.split(",")
+    REPEAT_TOLERANCE = args.repeat_tolerance
+    IGNORE_EXTENSIONS = args.ignore_prefix.split(",")
 def trunc_txt(s):
     if len(s) > TRUNCATE_LENGTH:
         s = "..."+s[-32:]
