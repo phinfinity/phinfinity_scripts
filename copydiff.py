@@ -20,6 +20,7 @@ SIZE_LIMIT = 1024*32 # Don't process files bigger than 64K
 LINE_TRUNC = 512 # Truncate long lines to first this many characters
 REPEAT_TOLERANCE = 10 # Ignore digests which repeat more than 10 times
 IGNORE_EXTENSIONS = [".class", ".jar", ".html", ".txt", ".xml", ".png", ".gif", ".css"]
+EXTENDED_FILE_PRINT = False
 space_remover = re.compile('\s')
 digest_list = {} # digest -> line eof text mapping
 file_lines = {}
@@ -27,7 +28,7 @@ file_lines = {}
 def set_constants_from_argumentes():
     global ROOT_DIR, TRUNCATE_LENGTH, MIN_PERCENT_MATCH_TO_DSIPLAY
     global MIN_LINES_MATCH_TO_DISPLAY, SIZE_LIMIT, LINE_TRUNC, REPEAT_TOLERANCE
-    global IGNORE_EXTENSIONS
+    global IGNORE_EXTENSIONS, EXTENDED_FILE_PRINT
     parser = argparse.ArgumentParser()
     parser.add_argument("root_directory",
             help="Root directory to start crawling at. \
@@ -35,6 +36,8 @@ def set_constants_from_argumentes():
                     Defaults to current directory.",
             nargs='?',
             default=ROOT_DIR)
+    parser.add_argument("-e", "--extended_list", action="store_true",
+            help="Enable listing copied files for each submission.")
     parser.add_argument("--repeat_tolerance", "-r", type=int, default=REPEAT_TOLERANCE,
             help="If a section of code occurs more than this many times , it will be treated as boilerplate \
                     and won't be counted towards copied code sections. For performance reasons this needs to \
@@ -54,6 +57,7 @@ def set_constants_from_argumentes():
     parser.add_argument("--ignore_prefix", type=str, default=",".join(IGNORE_EXTENSIONS),
             help="comma separated list of extensions or file name suffixes to be ignored. Defaults to %s" % ",".join(IGNORE_EXTENSIONS))
     args = parser.parse_args()
+    EXTENDED_FILE_PRINT = args.extended_list
     ROOT_DIR = args.root_directory
     TRUNCATE_LENGTH = args.truncate_length
     MIN_PERCENT_MATCH_TO_DSIPLAY = args.min_percent_display
@@ -128,6 +132,8 @@ def main():
         rtup = i[1]
         files = sorted(map(lambda x: (x[1],x[0]), copy_files[rtup].items()))
         print "%d : %s-%s" % (i[0], i[1][0], i[1][1])
+        if not EXTENDED_FILE_PRINT:
+            continue
         for j in files:
             l1 = file_lines[j[1][0]]
             l2 = file_lines[j[1][1]]
