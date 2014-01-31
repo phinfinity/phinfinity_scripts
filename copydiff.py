@@ -38,20 +38,20 @@ def set_constants_from_argumentes():
             default=ROOT_DIR)
     parser.add_argument("-e", "--extended_list", action="store_true",
             help="Enable listing copied files for each submission.")
-    parser.add_argument("--repeat_tolerance", "-r", type=int, default=REPEAT_TOLERANCE,
+    parser.add_argument("-r", "--repeat_tolerance", type=int, default=REPEAT_TOLERANCE,
             help="If a section of code occurs more than this many times , it will be treated as boilerplate \
                     and won't be counted towards copied code sections. For performance reasons this needs to \
                     be a small numbers, bigger numbers will quadratically slow down. Defaults to %d" % REPEAT_TOLERANCE)
-    parser.add_argument("--size_limit", "-s", type=int, default=SIZE_LIMIT,
+    parser.add_argument("-s", "--size_limit", type=int, default=SIZE_LIMIT,
             help="Minimum size of a file in bytes , for it to be checked as code for copying. \
                     Defaults to %d" % SIZE_LIMIT)
-    parser.add_argument("--truncate_length", "-t", type=int, default=TRUNCATE_LENGTH,
+    parser.add_argument("-t", "--truncate_length", type=int, default=TRUNCATE_LENGTH,
             help="Number of characters to truncate display of files to. \
                      Defaults to %d" % TRUNCATE_LENGTH)
-    parser.add_argument("--min_percent_display", "-p", type=float, default=MIN_PERCENT_MATCH_TO_DSIPLAY,
+    parser.add_argument("-p", "--min_percent_display", type=float, default=MIN_PERCENT_MATCH_TO_DSIPLAY,
             help="Minimum percentage of file match required to display filename.\
                     Defaults to %.2f" % MIN_PERCENT_MATCH_TO_DSIPLAY)
-    parser.add_argument("--min_lines_display", "-l", type=int, default=MIN_LINES_MATCH_TO_DISPLAY,
+    parser.add_argument("-l", "--min_lines_display", type=int, default=MIN_LINES_MATCH_TO_DISPLAY,
             help="Minimum number of lines a file match requires to display its name.\
                     Defaults to %d" % MIN_LINES_MATCH_TO_DISPLAY)
     parser.add_argument("--ignore_prefix", type=str, default=",".join(IGNORE_EXTENSIONS),
